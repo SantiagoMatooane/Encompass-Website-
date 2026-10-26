@@ -1,0 +1,8 @@
+.DS_Store
+.openai/
+.env
+.env.*
+!.env.example
+node_modules/
+unused-logo-cutout.png
+*.log
