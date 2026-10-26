@@ -1,0 +1,27 @@
+/* Legal presentation only; shared chapters and Marketing keep their existing styles. */
+#legal-dialog{width:min(920px,calc(100% - 24px));max-height:90svh;overflow-y:auto;padding:48px 36px 28px;overscroll-behavior:contain}
+#legal-dialog h2{font-size:clamp(36px,6vw,58px);margin:16px 0}
+#legal-dialog h3{font:500 18px/1.4 Inter,Arial,sans-serif;margin:24px 0 12px}
+#legal-dialog p,#legal-dialog li{font-size:13px;line-height:1.75;color:#b9c5cf}
+#legal-dialog ul,#legal-dialog ol{padding-left:20px}
+#legal-dialog .legal-capabilities{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;list-style:none;padding:0}
+#legal-dialog .legal-capabilities strong{display:block;color:#f5f6f7;font-weight:500}
+#legal-dialog .legal-demo{border:1px solid #536575;border-radius:5px;padding:20px;margin-top:26px;background:#0b1117}
+#legal-dialog .legal-demo h3{margin-top:0}
+#legal-dialog .legal-step{color:#a5d5f5;font-weight:600}
+#legal-dialog .legal-demo-panel{min-height:190px}
+#legal-dialog .legal-demo-panel h4{font-size:17px;line-height:1.5;margin:14px 0}
+#legal-dialog .legal-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}
+#legal-dialog button:not(.close){border:1px solid #72899a;border-radius:3px;padding:12px 16px;font-size:12px;min-height:44px;color:#e9f3fa}
+#legal-dialog button:not(.close):hover{background:#243746}
+#legal-dialog button:disabled{opacity:.5;cursor:not-allowed}
+#legal-dialog button.legal-primary{background:#d8eaf6;color:#142532;border-color:#d8eaf6}
+#legal-dialog .legal-check{display:flex;align-items:center;gap:12px;color:#e9f3fa;font-size:13px;line-height:1.6;padding:12px 0}
+#legal-dialog input[type=checkbox]{width:20px;height:20px;flex:none;accent-color:#a5d5f5}
+#legal-dialog label[for=legal-assignee]{display:block;font-size:13px;margin:16px 0 8px}
+#legal-dialog select{width:100%;max-width:300px;padding:12px;background:#162330;color:#fff;border:1px solid #72899a;border-radius:3px}
+#legal-dialog .legal-summary{border-left:2px solid #a5d5f5;padding-left:16px}
+#legal-dialog .legal-enquiry{margin-top:24px;width:100%;text-align:left}
+#legal-dialog :focus-visible{outline:2px solid #a5d5f5;outline-offset:4px}
+body:has(#legal-dialog[open]){overflow:hidden}
+@media(max-width:640px){#legal-dialog{padding:44px 20px 24px;max-height:92svh}#legal-dialog .legal-capabilities{grid-template-columns:1fr}#legal-dialog .legal-demo{padding:16px}#legal-dialog .legal-controls button{flex:1}#legal-dialog .legal-demo-panel{min-height:0}}
