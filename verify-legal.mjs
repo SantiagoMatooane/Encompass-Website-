@@ -59,6 +59,15 @@ async function open() {
   await click('[data-product="0"]');
   assert.equal(await evaluate(`document.querySelector('#legal-dialog').open`), true);
 }
+async function artworkScreenshot(name) {
+  await evaluate(`document.querySelector('#products').scrollIntoView({behavior: 'instant'})`);
+  await waitFor(`Number(document.querySelector('#products').style.opacity) > .99`);
+  const bounds = await evaluate(`(() => { const r = document.querySelector('.product-law').getBoundingClientRect(); return {x:r.x,y:r.y,width:r.width,height:r.height,scale:1}; })()`);
+  const offset = await evaluate(`({x:scrollX,y:scrollY})`);
+  const shot = await send('Page.captureScreenshot', {format: 'png', clip: {...bounds, x:bounds.x+offset.x, y:bounds.y+offset.y}, captureBeyondViewport: true});
+  await writeFile(join(tmpdir(), `encompass-artwork-${name}.png`), Buffer.from(shot.data, 'base64'));
+  return bounds;
+}
 async function flow() {
   await click('#legal-open');
   await click('#legal-demo-panel [data-next]');
@@ -78,6 +87,25 @@ try {
   await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
   await send('Emulation.setDeviceMetricsOverride', {width: 1365, height: 900, deviceScaleFactor: 1, mobile: false});
   await navigate('/');
+  await waitFor(`document.querySelector('.product-law img').complete && document.querySelector('.product-law img').naturalWidth > 0`);
+  assert.match(await evaluate(`document.querySelector('.product-law img').currentSrc`), /legal-desktop-chrome.webp$/);
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('.product-law img')).objectFit`), 'contain');
+  const normalCard = await artworkScreenshot('desktop');
+  await send('Input.dispatchMouseEvent', {type:'mouseMoved', x:normalCard.x + normalCard.width / 2, y:normalCard.y + normalCard.height / 2});
+  await waitFor(`document.querySelector('.product-law').getBoundingClientRect().width > ${normalCard.width * 1.2}`);
+  // Let the existing flex and image transitions settle before capturing.
+  await new Promise(resolve => setTimeout(resolve, 1100));
+  await artworkScreenshot('hover');
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('.product-law img')).filter`), 'none');
+  await send('Input.dispatchMouseEvent', {type:'mouseMoved', x:1, y:1});
+  await evaluate(`document.querySelector('[data-product="0"]').focus()`);
+  // A real Tab/Shift-Tab sequence activates keyboard focus styling.
+  await key('Tab', 'Tab', 9);
+  await send('Input.dispatchKeyEvent', {type:'keyDown', key:'Tab', code:'Tab', windowsVirtualKeyCode:9, modifiers:8});
+  await send('Input.dispatchKeyEvent', {type:'keyUp', key:'Tab', code:'Tab', windowsVirtualKeyCode:9, modifiers:8});
+  assert.equal(await evaluate(`document.querySelector('.product-law').matches(':focus-visible')`), true);
+  await new Promise(resolve => setTimeout(resolve, 700));
+  await artworkScreenshot('focus');
   // Keyboard opening, Tab containment, Escape and restoration.
   await evaluate(`document.querySelector('[data-product="0"]').focus()`);
   await key('Enter', 'Enter', 13);
@@ -119,7 +147,10 @@ try {
   // Mobile layout, reduced motion, and a complete second run.
   await send('Emulation.setDeviceMetricsOverride', {width: 390, height: 844, deviceScaleFactor: 1, mobile: true});
   await send('Emulation.setEmulatedMedia', {features: [{name: 'prefers-reduced-motion', value: 'reduce'}]});
-  await navigate('/'); await open(); await flow();
+  await navigate('/');
+  await artworkScreenshot('mobile');
+  assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true);
+  await open(); await flow();
   assert.equal(await evaluate(`matchMedia('(prefers-reduced-motion: reduce)').matches`), true);
   assert.equal(await evaluate(`const d = document.querySelector('#legal-dialog'); d.scrollWidth <= d.clientWidth && d.getBoundingClientRect().width <= innerWidth`), true);
   await evaluate(`document.querySelector('.legal-demo').scrollIntoView({block: 'start', behavior: 'instant'})`);

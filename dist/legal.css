@@ -25,3 +25,14 @@
 #legal-dialog :focus-visible{outline:2px solid #a5d5f5;outline-offset:4px}
 body:has(#legal-dialog[open]){overflow:hidden}
 @media(max-width:640px){#legal-dialog{padding:44px 20px 24px;max-height:92svh}#legal-dialog .legal-capabilities{grid-template-columns:1fr}#legal-dialog .legal-demo{padding:16px}#legal-dialog .legal-controls button{flex:1}#legal-dialog .legal-demo-panel{min-height:0}}
+
+/* Conceptual product artwork, not an exact application screenshot.
+   Contain the complete composition so the monitor and compass mouse survive
+   the existing card expansion; leave the shared hover animation in place. */
+body:not(.marketing-page) .product-law{background:#080c11}
+body:not(.marketing-page) .product-law img{height:58%;object-fit:contain;object-position:85% center;filter:none}
+body:not(.marketing-page) .product-law:after{background:linear-gradient(0deg,#04070b 0%,#04070bf2 32%,#04070b99 43%,transparent 61%)}
+body:not(.marketing-page) .product-law .product-info{text-shadow:0 1px 4px #000}
+body:not(.marketing-page) .product-law .circle-arrow{background:#04070b99}
+@media(max-width:900px){body:not(.marketing-page) .product-law img{object-position:right center}}
+@media(max-width:640px){body:not(.marketing-page) .product-law{min-height:440px}body:not(.marketing-page) .product-law img{height:56%;object-position:75% center}}
