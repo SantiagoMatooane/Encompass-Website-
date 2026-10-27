@@ -234,8 +234,8 @@ try {
   await click('#data-division');
   await waitFor(`location.pathname === '/index.html' && document.readyState === 'complete'`);
   await click('[data-product="1"]');
-  assert.match(await text('#dialog-title'), /Customer Relationship/);
-  await click('#info-dialog .close');
+  assert.match(await text('#restaurant-title'), /Restaurant Digital Experience/);
+  await click('#restaurant-dialog .restaurant-close');
   await click('[data-product="2"]');
   assert.match(await text('#dialog-title'), /Team Workflow/);
   await click('#info-dialog .close');
