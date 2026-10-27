@@ -1,14 +1,16 @@
 /* Restaurant card only; preserve shared flex expansion and image zoom. */
 body:not(.marketing-page) .product-restaurant{background:#090c10}
-body:not(.marketing-page) .product-restaurant picture{position:absolute;inset:0 0 auto;height:57%;display:block}
-body:not(.marketing-page) .product-restaurant img{width:100%;height:100%;object-fit:cover;object-position:52% 45%;filter:none;transform-origin:center;mask-image:linear-gradient(transparent,#000 5%,#000 80%,transparent),linear-gradient(to right,transparent,#000 4%,#000 96%,transparent);mask-composite:intersect}
-body:not(.marketing-page) .product-restaurant:after{background:linear-gradient(0deg,#04070b 0%,#04070bed 35%,#04070b88 45%,transparent 59%)}
+body:not(.marketing-page) .product-restaurant picture{position:absolute;inset:0;display:block}
+body:not(.marketing-page) .product-restaurant img{width:100%;height:100%;object-fit:cover;object-position:53% 38%;filter:none;transform-origin:center;mask-image:none}
+body:not(.marketing-page) .product-restaurant:hover img,body:not(.marketing-page) .product-restaurant:focus-visible img{object-position:53% 28%}
+body:not(.marketing-page) .product-restaurant:after{background:linear-gradient(0deg,#04070bd1 0%,#04070bb8 30%,#04070ba3 52%,#04070b3d 70%,transparent 87%)}
 body:not(.marketing-page) .product-restaurant .product-top>span:first-child{background:#04070bb3;padding:5px 7px;border-radius:3px}
 body:not(.marketing-page) .product-restaurant .circle-arrow{background:#04070b99}
-body:not(.marketing-page) .product-restaurant .product-info{text-shadow:0 1px 4px #000}
+body:not(.marketing-page) .product-restaurant .product-info{text-shadow:0 1px 2px #000,0 0 6px #000}
+body:not(.marketing-page) .product-restaurant .product-kicker,body:not(.marketing-page) .product-restaurant .product-description{color:#e9eef2}
 body:not(.marketing-page) .product-restaurant .product-title{font-size:clamp(29px,2.7vw,43px)}
-@media(min-width:641px) and (max-width:900px){body:not(.marketing-page) .product-restaurant picture{height:47%}body:not(.marketing-page) .product-restaurant img{height:auto;object-fit:contain;object-position:center top}}
-@media(max-width:640px){body:not(.marketing-page) .product-restaurant{min-height:490px}body:not(.marketing-page) .product-restaurant picture{height:55%}body:not(.marketing-page) .product-restaurant img{height:auto;object-fit:contain;object-position:center top}body:not(.marketing-page) .product-restaurant .product-title{font-size:36px}}
+@media(min-width:641px) and (max-width:900px){body:not(.marketing-page) .product-restaurant img{object-position:54% 38%}body:not(.marketing-page) .product-restaurant:hover img,body:not(.marketing-page) .product-restaurant:focus-visible img{object-position:53% 28%}}
+@media(max-width:640px){body:not(.marketing-page) .product-restaurant{min-height:490px}body:not(.marketing-page) .product-restaurant img,body:not(.marketing-page) .product-restaurant:hover img,body:not(.marketing-page) .product-restaurant:focus-visible img{object-position:54% 38%}body:not(.marketing-page) .product-restaurant .product-title{font-size:36px}}
 
 /* One legal-style details dialog becomes a spacious, warm menu view. */
 #restaurant-dialog{width:min(940px,calc(100% - 24px));max-width:none;max-height:92svh;overflow-y:auto;padding:48px 36px 30px;background:#11171d;border:1px solid #48515a;color:#f5f6f7;overscroll-behavior:contain}

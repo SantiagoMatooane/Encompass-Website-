@@ -1,6 +1,6 @@
 // Dependency-free browser checks. Start the static preview and Chrome with
 // --headless=new --remote-debugging-port=9227 --user-data-dir=<temporary-profile>.
-// Run: node verify-legal.mjs
+// Run: node verify-restaurant.mjs
 import assert from 'node:assert/strict';
 import {writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
@@ -65,6 +65,14 @@ async function screenshot(name, selector) {
   const shot=await send('Page.captureScreenshot',params);
   await writeFile(join(tmpdir(),`encompass-restaurant-${name}.png`),Buffer.from(shot.data,'base64'));
 }
+async function assertFullCardArtwork() {
+  assert.equal(await evaluate(`(() => {
+    const card=document.querySelector('.product-restaurant').getBoundingClientRect();
+    const picture=document.querySelector('.product-restaurant picture').getBoundingClientRect();
+    const image=getComputedStyle(document.querySelector('.product-restaurant img'));
+    return Math.abs(card.width-picture.width)<3 && Math.abs(card.height-picture.height)<3 && image.objectFit==='cover' && image.maskImage==='none';
+  })()`),true,'Artwork covers the complete card without a mask');
+}
 async function open() {
   await click('[data-product="1"]');
   assert.equal(await evaluate(`document.querySelector('#restaurant-dialog').open`),true);
@@ -112,11 +120,13 @@ try {
   assert.equal(await text('#interest option:nth-child(3)'),'Restaurant Digital Experience');
   assert.doesNotMatch(await text('#products'),/Customer Relationship|CRM/);
   await screenshot('card-desktop','.product-restaurant');
+  await assertFullCardArtwork();
   const rect=await evaluate(`(() => {const r=document.querySelector('.product-restaurant').getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};})()`);
   await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:rect.x+rect.width/2,y:rect.y+rect.height/2});
   await waitFor(`document.querySelector('.product-restaurant').getBoundingClientRect().width > ${rect.width*1.2}`);
   await new Promise(r=>setTimeout(r,1100));
   await screenshot('card-hover','.product-restaurant');
+  await assertFullCardArtwork();
   await send('Input.dispatchMouseEvent',{type:'mouseMoved',x:1,y:1});
   // Real keyboard opening and focus containment.
   await evaluate(`document.querySelector('[data-product="1"]').focus()`);
@@ -125,6 +135,11 @@ try {
   await send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9,modifiers:8});
   assert.equal(await evaluate(`document.querySelector('.product-restaurant').matches(':focus-visible')`),true);
   await screenshot('card-focus','.product-restaurant');
+  await assertFullCardArtwork();
+  await evaluate(`document.activeElement.blur()`);
+  await waitFor(`Math.abs(document.querySelector('.product-restaurant').getBoundingClientRect().width-${rect.width})<1`);
+  assert.equal(await evaluate(`Math.abs(document.querySelector('.product-restaurant').getBoundingClientRect().width-${rect.width})<1`),true,'Returns to collapsed width');
+  await evaluate(`document.querySelector('.product-restaurant').focus()`);
   await key('Enter','Enter',13);
   await waitFor(`document.querySelector('#restaurant-dialog').open`);
   for(let i=0;i<8;i++) {await key('Tab','Tab',9);assert.equal(await evaluate(`document.querySelector('#restaurant-dialog').contains(document.activeElement)`),true);}
@@ -158,6 +173,7 @@ try {
     await evaluate(`document.querySelector('#products').scrollIntoView({behavior:'instant'})`);
     await waitFor(`Number(document.querySelector('#products').style.opacity)>.99`);
     await screenshot(`card-${width}`,'.product-restaurant');
+    await assertFullCardArtwork();
     for(const lang of ['en','fr','zh']) {
       await locale(lang);
       assert.equal(await evaluate(`(() => {const card=document.querySelector('.product-restaurant').getBoundingClientRect(), info=document.querySelector('.product-restaurant .product-info').getBoundingClientRect();return info.top>=card.top+70 && info.bottom<=card.bottom && info.left>=card.left;})()`),true,`Card text fits at ${width}/${lang}`);
