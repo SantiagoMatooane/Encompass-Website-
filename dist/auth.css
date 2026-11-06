@@ -1,0 +1,36 @@
+/* Authentication only; use the site's actual Barlow and Inter font faces. */
+#auth-dialog{width:min(560px,calc(100% - 32px));max-width:none;max-height:92svh;overflow-y:auto;overscroll-behavior:contain;padding:48px 38px 30px;background:#11171d;color:#f5f6f7;border:1px solid #35404b;border-radius:5px;box-shadow:0 40px 100px #0008;font-family:Inter,Arial,sans-serif}
+#auth-dialog::backdrop{background:#02070bc9;backdrop-filter:blur(8px)}
+#auth-dialog h2{font:400 clamp(42px,6vw,58px)/1.06 Barlow,'Arial Narrow',sans-serif;letter-spacing:-.7px;margin:24px 0}
+#auth-dialog p{font:13px/1.8 Inter,Arial,sans-serif;color:#b9c5cf;margin:16px 0}
+#auth-dialog .auth-eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;margin:0;color:#bacbd7}
+#auth-dialog label{display:block;font-size:12px;color:#d6dfe5;margin:18px 0 8px}
+#auth-dialog input{display:block;width:100%;min-width:0;border:1px solid #52616d;border-radius:3px;padding:12px;background:#0b1117;color:#f5f6f7;min-height:46px;font:14px Inter,Arial,sans-serif}
+#auth-dialog input:autofill{color-scheme:dark}
+#auth-dialog button{min-height:44px;padding:12px 16px;border:1px solid #758693;background:transparent;color:#e9f3fa;border-radius:3px;font:500 12px/1.5 Inter,Arial,sans-serif;cursor:pointer}
+#auth-dialog button:hover:not(:disabled){background:#243746}
+#auth-dialog button:disabled{opacity:.55;cursor:not-allowed}
+#auth-dialog button.auth-primary{width:100%;margin-top:22px;background:#e3edf4;border-color:#e3edf4;color:#142532}
+#auth-dialog button.auth-primary:hover:not(:disabled){background:#fff}
+#auth-dialog .auth-password{display:flex;align-items:stretch;gap:8px}
+#auth-dialog .auth-password input{flex:1}
+#auth-dialog .auth-password button{flex:0 1 115px;font-size:11px}
+#auth-dialog button.auth-close{position:absolute;top:10px;right:12px;width:44px;height:44px;font-size:28px;line-height:1;padding:0;border:0}
+#auth-dialog button.auth-link{border:0;border-bottom:1px solid #6b7b86;border-radius:0;padding:10px 0;min-height:44px;margin:8px 0;text-align:left}
+#auth-dialog .auth-switch{margin-bottom:0}
+#auth-dialog .auth-switch button{margin:0 0 0 8px}
+#auth-dialog .auth-note{font-size:11px;color:#acbbc6}
+#auth-dialog .auth-identity{overflow-wrap:anywhere;border-left:2px solid #8ba4b7;padding-left:14px;color:#e3edf4}
+#auth-dialog .auth-actions{display:flex;flex-direction:column;gap:12px}
+#auth-dialog .auth-actions .auth-primary{margin-top:10px}
+#auth-dialog .auth-actions p{margin:0}
+#auth-dialog .auth-return{display:block;width:100%;margin-top:24px;border-color:#4b5b67}
+#auth-dialog .auth-notice,#auth-dialog #auth-feedback:not(:empty){border-left:2px solid #a9c8df;padding:10px 14px;background:#17222c;font-size:12px}
+#auth-dialog #auth-feedback.auth-error{border-color:#f3bcac;color:#ffd8cd}
+#auth-dialog #auth-find{width:100%;margin-top:16px}
+#auth-dialog :focus-visible{outline:2px solid #a5d5f5;outline-offset:4px}
+#auth-dialog .auth-loading{height:3px;margin:30px 0;background:linear-gradient(90deg,#263847,#a5d5f5,#263847);background-size:200% 100%;animation:auth-shimmer 1.4s linear infinite}
+@keyframes auth-shimmer{to{background-position:200% 0}}
+body:has(#auth-dialog[open]){overflow:hidden}
+@media(max-width:640px){#auth-dialog{padding:42px 22px 24px;max-height:94svh}#auth-dialog h2{font-size:44px}#auth-dialog .auth-password{flex-wrap:wrap}#auth-dialog .auth-password button{flex-basis:100%;text-align:center}#auth-dialog .auth-password input{flex-basis:100%}#auth-dialog button{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){#auth-dialog .auth-loading{animation:none}}

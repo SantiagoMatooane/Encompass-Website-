@@ -37,7 +37,7 @@ async function evaluate(expression) {
   return result.result.value;
 }
 async function waitFor(expression) {
-  const deadline = Date.now() + 5000;
+  const deadline = Date.now() + 20000; // Allow external SDK loading; feature timing assertions remain unchanged.
   while (Date.now() < deadline) {
     if (await evaluate(expression)) return;
     await new Promise(resolve => setTimeout(resolve, 50));
@@ -107,7 +107,7 @@ async function flow() {
 }
 
 try {
-  await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
+  await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');await send('Network.setCacheDisabled',{cacheDisabled:true});
   await send('Emulation.setDeviceMetricsOverride', {width: 1365, height: 900, deviceScaleFactor: 1, mobile: false});
   await navigate('/');
   await evaluate(`var language = document.querySelector('#language'); language.value = 'en'; language.dispatchEvent(new Event('change'));`);
@@ -229,16 +229,17 @@ try {
   assert.match(await text('#dialog-title'), /Advertising/);
   await click('#info-dialog .close');
   await click('#sign-in');
-  assert.equal(await evaluate(`document.querySelector('#info-dialog').open`), true);
-  await click('#info-dialog .close');
+  await waitFor(`document.querySelector('#auth-dialog')?.open`);
+  await click('#auth-dialog .auth-close');
   await click('#data-division');
   await waitFor(`location.pathname === '/index.html' && document.readyState === 'complete'`);
   await click('[data-product="1"]');
   assert.match(await text('#restaurant-title'), /Restaurant Digital Experience/);
   await click('#restaurant-dialog .restaurant-close');
+  await waitFor(`document.querySelector('#crm-dialog')`);
   await click('[data-product="2"]');
-  assert.match(await text('#dialog-title'), /Team Workflow/);
-  await click('#info-dialog .close');
+  assert.match(await text('#crm-title'), /Client Relationship Management/);
+  await click('#crm-close');
   // Inspect tablet and narrow-phone compositions, including the working panels.
   for (const width of [768, 320]) {
     await send('Emulation.setDeviceMetricsOverride', {width, height:900, deviceScaleFactor:1, mobile:width < 641});

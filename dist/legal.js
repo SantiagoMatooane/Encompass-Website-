@@ -76,6 +76,12 @@
     }
   };
 
+  // Scoped service options, separate from verified workspace capabilities and the local demo.
+  const messaging={
+    en:{title:'Keep communication moving',intro:'Reduce repetitive follow-ups with automated email and WhatsApp workflows for agreed case updates, document requests and reminders.',items:[['Automated email workflows','Configure email updates and follow-ups around agreed workflow events.'],['WhatsApp messaging integration','Connect WhatsApp notifications and follow-ups to selected workflows, with provider setup and message requirements agreed during scoping.']],scope:'Messaging availability depends on the agreed implementation, connected providers and required approvals. Provider charges and ongoing support are specified in the proposal.'},
+    fr:{title:'Gardez le fil des échanges',intro:'Réduisez les relances répétitives grâce à des processus automatisés par e-mail et WhatsApp pour les mises à jour de dossiers, demandes de documents et rappels convenus.',items:[['Processus automatisés par e-mail','Configurez les mises à jour et les relances par e-mail autour des événements de workflow convenus.'],['Intégration de la messagerie WhatsApp','Reliez les notifications et les relances WhatsApp aux processus sélectionnés, avec une configuration du fournisseur et des exigences de messagerie convenues lors du cadrage.']],scope:'La disponibilité de la messagerie dépend de la mise en œuvre convenue, des fournisseurs connectés et des autorisations requises. Les frais des fournisseurs et le support continu sont précisés dans la proposition.'},
+    zh:{title:'让沟通持续推进',intro:'针对约定的案件更新、文件请求和提醒，通过自动化电子邮件和 WhatsApp 工作流程减少重复跟进。',items:[['自动化电子邮件工作流程','围绕约定的工作流程事件配置电子邮件更新和跟进。'],['WhatsApp 消息集成','将 WhatsApp 通知和跟进连接到选定的工作流程，服务提供商设置和消息要求将在范围确定阶段商定。']],scope:'消息功能的可用性取决于约定的实施方案、连接的服务提供商及所需批准。服务提供商费用和持续支持将在提案中列明。'}
+  };
   const dialog = document.createElement('dialog');
   dialog.id = 'legal-dialog';
   dialog.setAttribute('aria-labelledby', 'legal-title');
@@ -86,12 +92,14 @@
   // Every value interpolated below is maintained local copy or a fixed fictional name.
   function render() {
     const t = currentCopy();
+    const m=messaging[document.documentElement.lang]||messaging.en;
     dialog.innerHTML = `<button type="button" class="close" aria-label="${t.close}">×</button>
       <p class="eyebrow">ENCOMPASS / ${document.documentElement.lang === 'en' ? 'DATA' : document.documentElement.lang === 'fr' ? 'DONNÉES' : '数据'}</p>
       <h2 id="legal-title" tabindex="-1">${t.title}</h2><p>${t.intro}</p><p>${t.scope}</p>
       <button type="button" class="legal-primary" id="legal-explore">${t.explore} ↗</button><p>${t.demoNote}</p>
       <h3>${t.problemTitle}</h3><p>${t.problem}</p>
       <h3>${t.capabilitiesTitle}</h3><ul class="legal-capabilities">${t.capabilities.map(([title, body]) => `<li><strong>${title}</strong>${body}</li>`).join('')}</ul>
+      <section class="legal-messaging" aria-labelledby="legal-messaging-title"><h3 id="legal-messaging-title">${m.title}</h3><p>${m.intro}</p><dl>${m.items.map(([title,body])=>`<div><dt>${title}</dt><dd>${body}</dd></div>`).join('')}</dl><p class="legal-messaging-scope">${m.scope}</p></section>
       <h3>${t.workflowTitle}</h3><p>${t.workflow}</p>
       <h3>${t.deliveryTitle}</h3><ol>${t.delivery.map(item => `<li>${item}</li>`).join('')}</ol><p>${t.proposal}</p>
       <button type="button" class="legal-primary legal-enquiry">${t.enquire} ↗</button>`;

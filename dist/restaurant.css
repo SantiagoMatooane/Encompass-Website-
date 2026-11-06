@@ -35,46 +35,110 @@ body:not(.marketing-page) .product-restaurant .product-title{font-size:clamp(29p
 #restaurant-dialog :focus-visible{outline:3px solid #a5d5f5;outline-offset:4px}
 body:has(#restaurant-dialog[open]){overflow:hidden}
 
-#restaurant-dialog.restaurant-menu{width:min(1180px,calc(100% - 24px));background:#fff0dc;color:#51331f;border-color:#d8a373;padding:30px 40px}
-#restaurant-dialog.restaurant-menu h2{font:400 clamp(36px,5vw,65px)/1.05 Georgia,serif;letter-spacing:-1.8px;color:#573321;margin:12px 0 22px}
-#restaurant-dialog.restaurant-menu h3{color:#573321}
-#restaurant-dialog.restaurant-menu p{color:#67432d}
-#restaurant-dialog.restaurant-menu button{color:#55331e;border-color:#b98256;background:#fff5e6}
-#restaurant-dialog.restaurant-menu button:hover{background:#ffdf9b}
+#restaurant-dialog.restaurant-menu{--r-yellow:#f8c009;--r-peach:#f6ce8a;--r-brown:#2b2212;--r-cream:#fff8ec;width:min(1180px,calc(100% - 24px));background:var(--r-cream);color:var(--r-brown);border-color:#caa66d;padding:30px 36px}
+#restaurant-dialog.restaurant-menu h2{font:400 clamp(38px,5vw,60px)/1.08 Barlow,'Arial Narrow',sans-serif;letter-spacing:-.5px;color:var(--r-brown);margin:14px 0 22px}
+#restaurant-dialog.restaurant-menu h3{color:var(--r-brown)}
+#restaurant-dialog.restaurant-menu p,#restaurant-dialog.restaurant-menu li{color:var(--r-brown)}
+#restaurant-dialog.restaurant-menu button{color:var(--r-brown);border-color:#9a7748;background:var(--r-cream)}
+#restaurant-dialog.restaurant-menu button:hover:not(:disabled){background:#f9dfb1}
+#restaurant-dialog.restaurant-menu button:disabled{opacity:.5;cursor:not-allowed}
+#restaurant-dialog.restaurant-menu button.restaurant-primary,#restaurant-dialog.restaurant-menu #restaurant-cart{background:var(--r-yellow);border-color:#9b7704;color:var(--r-brown);font-weight:600}
+#restaurant-dialog.restaurant-menu button.restaurant-primary:hover:not(:disabled),#restaurant-dialog.restaurant-menu #restaurant-cart:hover{background:#edb809}
 #restaurant-dialog.restaurant-menu .restaurant-close{background:transparent;border:0}
-#restaurant-dialog.restaurant-menu :focus-visible{outline:3px solid #8b4d23;outline-offset:4px}
-#restaurant-dialog .restaurant-menu-brand{display:flex;justify-content:center;align-items:center;gap:10px;font-size:12px;letter-spacing:2px;margin:10px 0}
-#restaurant-dialog .restaurant-menu-brand>span:first-child{font-size:32px;color:#9c5b2c}
-#restaurant-dialog .restaurant-demo{display:inline-block;font-size:10px;font-weight:600;background:#fce0a6;padding:5px 10px;border:1px solid #dca654;border-radius:30px}
-#restaurant-dialog .restaurant-menu-hero{position:relative;border-radius:20px;background:linear-gradient(125deg,#ffe6c9 25%,#ffce66);padding:24px 30px;overflow:hidden;margin:14px 0 18px}
-#restaurant-dialog.restaurant-menu .restaurant-menu-hero h2{max-width:750px;font-size:clamp(34px,4.5vw,56px);position:relative;z-index:1}
-#restaurant-dialog .restaurant-menu-hero p{max-width:610px;position:relative;z-index:1}
-#restaurant-dialog .restaurant-sun{position:absolute;right:30px;bottom:-45px;font-size:240px;line-height:1;color:#b6782d;opacity:.15;pointer-events:none}
+#restaurant-dialog.restaurant-menu :focus-visible{outline:3px solid #75420f;outline-offset:4px}
+#restaurant-dialog .restaurant-demo-heading{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding-right:24px}
+#restaurant-dialog .restaurant-menu-brand{display:flex;justify-content:center;align-items:center;gap:12px;margin:18px 0 20px}
+#restaurant-dialog .restaurant-menu-brand>span{font-size:40px;color:var(--r-brown)}
+#restaurant-dialog .restaurant-menu-brand strong{font:400 34px/1.2 Barlow,'Arial Narrow',sans-serif;letter-spacing:.3px}
+#restaurant-dialog .restaurant-menu-brand p{font-size:11px;margin:4px 0}
+#restaurant-dialog .restaurant-demo{display:inline-block;font-size:10px;font-weight:600;background:var(--r-peach);padding:5px 10px;border:1px solid #caa66d;border-radius:30px}
+#restaurant-dialog .restaurant-menu-hero,#restaurant-dialog .restaurant-table-panel{position:relative;border-radius:18px;background:var(--r-peach);padding:26px 30px;overflow:hidden;margin:20px 0}
+#restaurant-dialog.restaurant-menu .restaurant-menu-hero h2{max-width:750px;font-size:clamp(36px,4.5vw,54px);position:relative;z-index:1}
+#restaurant-dialog .restaurant-menu-hero p{max-width:650px;position:relative;z-index:1}
+#restaurant-dialog .restaurant-sun{position:absolute;right:24px;bottom:-40px;font-size:220px;line-height:1;color:#8a5c15;opacity:.15;pointer-events:none}
+#restaurant-dialog .restaurant-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:18px 0;padding:12px;background:#f6ce8a44;border:1px solid #dbc39a;border-radius:10px}
+#restaurant-dialog #restaurant-cart-count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 5px;background:var(--r-brown);color:var(--r-cream);border-radius:20px;margin-left:8px;font-size:11px}
+#restaurant-dialog .restaurant-toolbar .restaurant-text-action{margin-left:auto}
+#restaurant-dialog .restaurant-text-action{border-color:transparent;text-decoration:underline;text-underline-offset:3px}
+#restaurant-dialog .restaurant-guide{margin:16px 0;border:1px solid #dbc39a;border-radius:8px;padding:6px 16px;background:#fff0d6}
+#restaurant-dialog .restaurant-guide summary{cursor:pointer;min-height:44px;padding:10px 0;font-size:12px;font-weight:600}
+#restaurant-dialog .restaurant-guide ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;padding-left:20px}
+#restaurant-dialog .restaurant-guide li{font-size:11px;line-height:1.7;margin:0}
+#restaurant-dialog .restaurant-guide li[aria-current]{border-bottom:2px solid var(--r-brown);padding-bottom:8px}
+#restaurant-dialog .restaurant-guide li p{font-size:11px;margin:8px 0}
+#restaurant-dialog .restaurant-feedback:empty{display:none}
+#restaurant-dialog .restaurant-feedback:not(:empty){font-size:12px;font-weight:500;border-left:3px solid #73571a;background:#f6ce8a55;padding:10px 14px}
 #restaurant-dialog .restaurant-categories{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}
 #restaurant-dialog .restaurant-categories button{border-radius:30px}
-#restaurant-dialog .restaurant-categories button[aria-pressed=true]{background:#603a24;color:#fff2da;border-color:#603a24}
+#restaurant-dialog .restaurant-categories button[aria-pressed=true]{background:var(--r-brown);color:var(--r-cream);border-color:var(--r-brown)}
 #restaurant-dialog .restaurant-dishes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-#restaurant-dialog button.restaurant-dish{padding:0;border-radius:15px;overflow:hidden;display:grid;grid-template-columns:135px minmax(0,1fr);align-items:stretch;background:#fff8ed;border-color:#e2b98c}
-#restaurant-dialog .restaurant-dish-art{display:flex;align-items:center;justify-content:center;font-size:70px;min-height:180px;background:radial-gradient(circle at 45% 50%,#fff9e5 30%,#d9a86b 32%,#ffe0a8 34%,#f2c17d 66%);text-shadow:0 8px 20px #80502f33}
-#restaurant-dialog .restaurant-dish-art.garden{background:radial-gradient(circle,#fff6de 30%,#a5a76b 32%,#e7dbad 34%,#e1cc91 66%)}
-#restaurant-dialog .restaurant-dish-art.cake{background:radial-gradient(circle,#fff7df 30%,#dfb379 32%,#ffe7bb 34%,#f7dba9 66%)}
-#restaurant-dialog .restaurant-dish-art.tea{background:radial-gradient(circle,#fff3db 30%,#c48358 32%,#ffd2a5 34%,#edba8e 66%)}
+#restaurant-dialog button.restaurant-dish{padding:0;border-radius:15px;overflow:hidden;display:grid;grid-template-columns:120px minmax(0,1fr);align-items:stretch;background:#fffaf1;border-color:#d6b784}
 #restaurant-dialog .restaurant-dish-copy{display:flex;flex-direction:column;padding:20px;gap:10px}
-#restaurant-dialog .restaurant-dish-copy>strong{font:400 23px/1.2 Georgia,serif;letter-spacing:-.4px}
+#restaurant-dialog .restaurant-dish-copy>strong{font:400 25px/1.15 Barlow,'Arial Narrow',sans-serif;letter-spacing:0}
 #restaurant-dialog .restaurant-dish-copy>span{font-size:11px;line-height:1.7}
 #restaurant-dialog .restaurant-dietary{font-weight:500}
-#restaurant-dialog .restaurant-dish-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid #ead4b6}
-#restaurant-dialog .restaurant-dish-bottom b{font:500 18px Georgia,serif}
+#restaurant-dialog .restaurant-dish-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid #dbc39a}
+#restaurant-dialog .restaurant-dish-bottom b{font:600 17px Inter,Arial,sans-serif}
 #restaurant-dialog .restaurant-dish-bottom>span{font-size:10px;text-decoration:underline}
-#restaurant-dialog .restaurant-menu-footer{margin-top:28px;padding-top:20px;border-top:1px solid #d4ab7f;display:flex;gap:24px;align-items:center;justify-content:space-between}
+#restaurant-dialog .restaurant-menu-footer{margin-top:28px;padding-top:20px;border-top:1px solid #caa66d;display:flex;gap:24px;align-items:center;justify-content:space-between}
 #restaurant-dialog .restaurant-menu-footer p{max-width:600px;font-size:11px}
-#restaurant-dialog .restaurant-menu-footer button{flex:none}
-#restaurant-dialog .restaurant-dish-detail{display:grid;grid-template-columns:1fr 1.2fr;gap:36px;align-items:center;margin:24px 0}
-#restaurant-dialog .restaurant-dish-detail .restaurant-dish-art{height:380px;border-radius:24px;font-size:150px}
-#restaurant-dialog .restaurant-price{display:flex;flex-direction:column;gap:8px;margin:26px 0}
+#restaurant-dialog .restaurant-menu-footer button{flex:none;max-width:100%}
+#restaurant-dialog .restaurant-dish-detail{display:grid;grid-template-columns:1fr 1.2fr;gap:32px;align-items:center;margin:24px 0}
+#restaurant-dialog .restaurant-price{display:flex;flex-direction:column;gap:8px;margin:24px 0}
 #restaurant-dialog .restaurant-price span{font-size:11px}
-#restaurant-dialog .restaurant-price strong{font:400 32px Georgia,serif}
+#restaurant-dialog .restaurant-price strong{font:400 30px Inter,Arial,sans-serif}
+#restaurant-dialog label{display:block;font:500 12px/1.6 Inter,Arial,sans-serif;margin:14px 0 8px}
+#restaurant-dialog select,#restaurant-dialog input[type=number]{display:block;border:1px solid #8c744b;background:#fffaf2;color:var(--r-brown);font:14px Inter,Arial,sans-serif;min-height:46px;border-radius:4px;padding:12px;max-width:100%}
+#restaurant-dialog select{width:100%}
+#restaurant-dialog input[type=number]{width:100px}
+#restaurant-dialog #restaurant-table-form,#restaurant-dialog #restaurant-add-form{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:20px 0}
+#restaurant-dialog #restaurant-table-form label,#restaurant-dialog #restaurant-add-form label{flex-basis:100%;margin:0}
+#restaurant-dialog #restaurant-table-form select{width:min(350px,100%)}
+#restaurant-dialog .restaurant-cart-lines{padding:0;list-style:none;margin:24px 0}
+#restaurant-dialog .restaurant-cart-lines li{display:grid;grid-template-columns:minmax(0,1.5fr) auto minmax(85px,.6fr) auto;gap:20px;align-items:center;padding:20px 0;margin:0;border-bottom:1px solid #d6bc8f}
+#restaurant-dialog .restaurant-cart-item-name strong{display:block;font:400 25px/1.2 Barlow,'Arial Narrow',sans-serif}
+#restaurant-dialog .restaurant-cart-item-name>span,#restaurant-dialog .restaurant-cart-item-total>span{display:block;font-size:11px;line-height:1.7;margin-top:8px}
+#restaurant-dialog .restaurant-cart-item-quantity{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}
+#restaurant-dialog .restaurant-cart-item-quantity button{width:44px;padding:8px;text-align:center;font-size:18px}
+#restaurant-dialog .restaurant-line-quantity{min-width:24px;text-align:center}
+#restaurant-dialog .restaurant-line-total{display:block;font:600 16px Inter,Arial,sans-serif;margin-top:8px}
+#restaurant-dialog .restaurant-total{display:flex;justify-content:space-between;gap:20px;padding:20px 0;border-bottom:2px solid #bba16c;font-size:18px;font-weight:500}
+#restaurant-dialog .restaurant-total strong{font:600 26px/1.4 Inter,Arial,sans-serif}
+#restaurant-dialog .restaurant-cart-actions,#restaurant-dialog .restaurant-confirmation-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:24px}
+#restaurant-dialog .restaurant-empty{border:1px dashed #ae8a50;border-radius:12px;padding:24px;margin:24px 0;background:#f6ce8a33}
+#restaurant-dialog .restaurant-order-disclosure{padding:14px 18px;border-left:3px solid #70551b;background:#f6ce8a66;font-size:12px}
+#restaurant-dialog .restaurant-confirmation{margin:24px 0}
+#restaurant-dialog .restaurant-confirmation-check{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--r-yellow);font-size:26px;color:var(--r-brown)}
+#restaurant-dialog .restaurant-order-meta{display:flex;gap:40px;flex-wrap:wrap;padding:20px 0}
+#restaurant-dialog .restaurant-order-meta dt{font-size:11px}
+#restaurant-dialog .restaurant-order-meta dd{font:500 15px/1.7 Inter,Arial,sans-serif;margin:6px 0;overflow-wrap:anywhere}
 #restaurant-dialog .restaurant-sr-only{position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden;white-space:nowrap}
-@media(max-width:900px){#restaurant-dialog button.restaurant-dish{grid-template-columns:1fr}#restaurant-dialog .restaurant-dish-art{min-height:160px}}
-@media(max-width:640px){#restaurant-dialog{padding:44px 20px 24px;max-height:94svh}#restaurant-dialog .restaurant-entry{grid-template-columns:1fr;gap:12px}#restaurant-dialog.restaurant-menu{padding:52px 18px 24px;width:100%;max-height:100svh;border:0;border-radius:0}#restaurant-dialog .restaurant-menu-hero{padding:24px 22px}#restaurant-dialog.restaurant-menu h2{font-size:40px;letter-spacing:-1px}#restaurant-dialog .restaurant-dishes{grid-template-columns:1fr}#restaurant-dialog button.restaurant-dish{grid-template-columns:90px minmax(0,1fr)}#restaurant-dialog .restaurant-dish-art{font-size:50px}#restaurant-dialog .restaurant-dish-copy{padding:16px}#restaurant-dialog .restaurant-dish-copy>strong{font-size:22px}#restaurant-dialog .restaurant-dish-detail{grid-template-columns:1fr;gap:20px}#restaurant-dialog .restaurant-dish-detail .restaurant-dish-art{height:200px;font-size:100px}#restaurant-dialog .restaurant-menu-footer{display:block}#restaurant-dialog .restaurant-categories{gap:8px}#restaurant-dialog .restaurant-categories button{padding:10px 12px;font-size:11px}}
+@media(max-width:900px){#restaurant-dialog button.restaurant-dish{grid-template-columns:1fr}#restaurant-dialog .restaurant-guide ol{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){#restaurant-dialog{padding:44px 20px 24px;max-height:94svh}#restaurant-dialog .restaurant-entry{grid-template-columns:1fr;gap:12px}#restaurant-dialog.restaurant-menu{padding:48px 18px 24px;width:100%;max-height:100svh;border:0;border-radius:0}#restaurant-dialog .restaurant-menu-hero,#restaurant-dialog .restaurant-table-panel{padding:22px 20px}#restaurant-dialog.restaurant-menu h2{font-size:40px;letter-spacing:-.3px}#restaurant-dialog .restaurant-menu-brand{justify-content:flex-start;gap:8px}#restaurant-dialog .restaurant-menu-brand strong{font-size:29px}#restaurant-dialog .restaurant-dishes{grid-template-columns:1fr}#restaurant-dialog button.restaurant-dish{grid-template-columns:85px minmax(0,1fr)}#restaurant-dialog .restaurant-dish-copy{padding:16px}#restaurant-dialog .restaurant-dish-copy>strong{font-size:24px}#restaurant-dialog .restaurant-dish-detail{grid-template-columns:1fr;gap:20px}#restaurant-dialog .restaurant-menu-footer{display:block}#restaurant-dialog .restaurant-categories{gap:8px}#restaurant-dialog .restaurant-categories button{padding:10px 12px;font-size:11px}#restaurant-dialog .restaurant-toolbar{padding:10px;gap:8px}#restaurant-dialog .restaurant-toolbar .restaurant-text-action{margin-left:0;flex-basis:100%;text-align:left}#restaurant-dialog .restaurant-guide ol{grid-template-columns:1fr}#restaurant-dialog .restaurant-cart-lines li{grid-template-columns:minmax(0,1fr) auto;gap:14px}#restaurant-dialog .restaurant-cart-item-name{grid-column:1/-1}#restaurant-dialog .restaurant-cart-lines [data-remove]{grid-column:1/-1;justify-self:start}#restaurant-dialog .restaurant-cart-actions>button,#restaurant-dialog .restaurant-confirmation-actions>button{width:100%}#restaurant-dialog .restaurant-demo-heading{padding-right:22px}#restaurant-dialog .restaurant-total strong{font-size:24px}}
 @media(prefers-reduced-motion:reduce){#restaurant-dialog #restaurant-art-entry img{transition:none}}
+
+/* Dish photography only: consistent frames, with per-dish focal points from JS. */
+#restaurant-dialog button.restaurant-dish{grid-template-columns:minmax(0,1fr);align-content:start}
+#restaurant-dialog .restaurant-food-frame{display:block;position:relative;min-width:0;overflow:hidden;background:#fff8ec;border:1px solid #d6b784;border-radius:14px;isolation:isolate}
+#restaurant-dialog .restaurant-food-frame picture{display:block;width:100%;height:100%}
+#restaurant-dialog .restaurant-food-frame img{display:block;width:100%;height:100%;object-fit:var(--food-fit,cover);object-position:var(--food-card);filter:saturate(.95) sepia(.06)}
+#restaurant-dialog .restaurant-food-card{width:100%;aspect-ratio:16/10;border-width:0 0 1px;border-radius:0}
+#restaurant-dialog .restaurant-food-detail{width:100%;aspect-ratio:1;border-radius:20px}
+#restaurant-dialog .restaurant-food-detail img{object-position:var(--food-detail)}
+#restaurant-dialog .restaurant-food-thumb{width:76px;height:76px;flex:0 0 76px;border-radius:10px}
+#restaurant-dialog .restaurant-cart-item-name{display:flex;align-items:center;gap:14px;min-width:0}
+#restaurant-dialog .restaurant-cart-item-name>div{min-width:0}
+#restaurant-dialog .restaurant-cart-item-name>div>span{display:block;font-size:11px;line-height:1.7;margin-top:8px}
+#restaurant-dialog .restaurant-food-fallback:not([hidden]){display:grid;place-items:center;position:absolute;inset:0;padding:12px;color:#2b2212;font-size:12px;background:#f5ead6;text-align:center}
+#restaurant-dialog .restaurant-food-frame picture[hidden]{display:none}
+@media(max-width:640px){#restaurant-dialog button.restaurant-dish{grid-template-columns:minmax(0,1fr)}#restaurant-dialog .restaurant-food-detail{aspect-ratio:1}#restaurant-dialog .restaurant-food-thumb{width:68px;height:68px;flex-basis:68px}}
+
+/* Currency updates replace price text only; fixed inline slots prevent reflow. */
+#restaurant-dialog .restaurant-currency{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:16px 0}
+#restaurant-dialog .restaurant-currency label{font-size:12px;color:#2b2212}
+#restaurant-dialog .restaurant-currency select{width:auto;min-width:88px;color:#2b2212;background:#fff8ec;border:1px solid #9a7748;border-radius:5px;padding:12px;font:inherit}
+#restaurant-dialog #restaurant-currency-preview{min-width:230px;text-align:center}
+#restaurant-dialog .restaurant-currency p{flex-basis:100%;font-size:11px;margin:0}
+#restaurant-dialog .restaurant-money{display:inline-block;width:12ch;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.4}
+#restaurant-dialog .restaurant-total .restaurant-money{text-align:right;font-size:clamp(17px,2vw,24px)}
+@media(max-width:640px){#restaurant-dialog .restaurant-currency{align-items:center}#restaurant-dialog #restaurant-currency-preview{width:100%;min-width:0}#restaurant-dialog .restaurant-total{gap:8px}#restaurant-dialog .restaurant-total>strong{min-width:0}}

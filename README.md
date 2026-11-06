@@ -7,10 +7,10 @@ Shared scroll-driven colour atmosphere and fading chapter transitions. Slogan: G
 Five scroll-snapped chapters: Home, About, Solutions, Team, Contact. English, French and Mandarin copy, responsive layouts, keyboard-accessible dialogs, reduced-motion support and locally hosted assets.
 
 ## Prototype boundaries
-- Sign-in and Marketing Solutions are explicit coming-soon dialogs.
+- Account signup/login uses Firebase Authentication. See [client authentication](docs/client-auth.md) for setup, test boundaries and manual inbox checks.
 - Product descriptions are draft positioning; detail dialogs identify the offers as previews.
 - Contact form opens the user's email app. No backend submission or storage.
-- Contact details were supplied by the owner: santiagomatooane3@gmail.com, 0759531545, France. Phone number retained exactly; international country code not supplied.
+- Public contact details: Data Centre uses annele@encompass.studio, 079 515 0130 (tel:+27795150130), South Africa. Marketing Solutions uses santiago@encompass.studio, 0759531545, France; its phone is retained exactly as supplied. These public links are separate from the form recipient.
 - Team portraits are placeholders. The header uses the supplied Encompass Corp. logo, edited to white with transparency.
 - No written guideline document was available; implemented the user's five-page written brief.
 - Headings use open-source Barlow Condensed as a visual approximation, not Porsche's proprietary font. Body uses Inter. Add a licensed brand font later if provided.
@@ -44,3 +44,28 @@ Photo sources:
 - https://www.pexels.com/photo/using-laptop-in-a-business-meeting-7693683/
 - https://www.pexels.com/photo/person-using-laptop-and-smartphone-4549413/
 - https://www.pexels.com/photo/crop-faceless-developer-working-on-software-code-on-laptop-5926382/
+
+## Current product experiences
+
+- Legal includes a guided fictional workspace with in-memory document and task state. Automated email and WhatsApp workflows are separately scoped options; the demo sends nothing.
+- Peachlight Kitchen includes supplied food photographs, table selection, a local cart and fictional order confirmation. Currency previews use fixed illustrative USD/ZAR/EUR/JPY rates, start paused and stop on interactions. Submitted confirmation currency and totals are frozen. No real orders, payments or messages are sent.
+- CRM is an in-development concept presentation with planned focus areas and an enquiry action; no CRM demo or internal client data is exposed.
+- The Data Centre About showcase rotates while visible, holds during interaction and dialogs, and uses a static layout for reduced motion.
+- Contact forms still compose email addressed to santiagomatooane3@gmail.com. Server-side enquiry delivery is pending.
+
+## Browser regression checks
+
+Serve `dist/` on port 4173 and run isolated Chrome with remote debugging on port 9227. Run each check sequentially:
+
+```powershell
+node verify-auth.mjs
+node verify-auth.mjs --sdk-only
+node verify-legal.mjs
+node verify-restaurant.mjs
+node verify-restaurant-real.mjs
+node verify-crm.mjs
+node verify-about.mjs
+node verify-contact.mjs
+```
+
+Authentication mocks exercise UI flows without live accounts or email. The SDK-only check loads the real public Firebase configuration read-only. See `docs/client-auth.md` for emulator and manual inbox checks. Real-timer restaurant and About checks require the browser to remain available during the run. Review screenshots and galleries are local artifacts under ignored `.openai/` or the system temporary directory, not project source. French and Mandarin copy still needs fluent-speaker review.
