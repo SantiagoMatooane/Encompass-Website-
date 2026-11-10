@@ -25,9 +25,9 @@ Five scroll-snapped chapters: Home, About, Solutions, Team, Contact. English, Fr
 The supplied original is preserved in dist/assets/encompass-logo-original.png. A browser SVG colour filter renders the exact source silhouette in white and makes the white background transparent, without redrawing its contours. Generated cutouts were rejected after visual inspection because they contained stray pixels. The production header uses the original directly.
 
 ## Marketing page
-`dist/marketing.html` is the continuous Marketing Solutions page. The division selector connects it to the existing Data Centre. Four sections follow the supplied handwritten guideline: framed hero, marketing overview, three packages, contact. White background, softly animated blue/green edge shapes, Instrument Serif typography, blue contact fade, English/French/Mandarin copy. Reduced-motion preferences disable ambient movement.
+`dist/marketing.html` is the continuous Marketing Solutions page. The division selector connects it to the existing Data Centre. Four sections follow the supplied handwritten guideline: framed hero, marketing overview, two services, contact. White background, softly animated blue/green edge shapes, Instrument Serif typography, blue contact fade, English/French/Mandarin copy. Reduced-motion preferences disable ambient movement.
 
-Owner-confirmed categories: advertising campaigns, social media management/posts/visibility, website creation. Public labels: Advertising & Campaigns, Social Media & Visibility, Website Design & Development. No invented prices, outcomes, client statistics, or package quotas.
+Current services: Digital Marketing (content creation, AI videos, brand positioning, social media management and paid campaigns) and Website Creation (packages scoped to needs and complexity). No invented prices, outcomes, client statistics, or package quotas.
 
 Additional free placeholder photos:
 - Spencer DeMera: https://unsplash.com/photos/green-rolling-hills-under-a-bright-blue-sky-DEF5GEz76-o
@@ -69,3 +69,11 @@ node verify-contact.mjs
 ```
 
 Authentication mocks exercise UI flows without live accounts or email. The SDK-only check loads the real public Firebase configuration read-only. See `docs/client-auth.md` for emulator and manual inbox checks. Real-timer restaurant and About checks require the browser to remain available during the run. Review screenshots and galleries are local artifacts under ignored `.openai/` or the system temporary directory, not project source. French and Mandarin copy still needs fluent-speaker review.
+
+## Marketing services update — November 2026
+
+`dist/marketing-services.js` provides detailed, accessible service dialogs with Pexels photography and correctly selected enquiry interests. `dist/website-examples.html` presents ten supplied screenshots across five website projects. Gallery cards expand on hover/focus and open a native image dialog on click or keyboard activation. Escape closes dialogs and returns focus. Mobile layouts use a single column; reduced-motion settings remove gallery transitions. New copy supports English, French and Mandarin.
+
+The three inspiration collages and handwritten notes are reference material, not portfolio entries. Optimized portfolio JPEGs are stored in `dist/assets/portfolio/`; originals are untouched. The Website Creation return link reopens its service dialog. No prices or package quotas have been invented.
+
+Validated locally: JavaScript syntax, both service dialogs, portfolio navigation, image enlargement, Escape/focus return, asset paths and enquiry options. This is local work on `feature/santiago-marketing`; no push, merge or deployment.
