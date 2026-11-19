@@ -1,5 +1,5 @@
 {
   "version": 2,
-  "functions": {"api/index.mjs": {"includeFiles": "{crm/**,website/**}", "excludeFiles": "{crm/node_modules/**,crm/.local/**,crm/.env*,crm/**/*.test.mjs}", "maxDuration": 60}},
+  "functions": {"api/index.mjs": {"includeFiles": "{crm/**,website/**}", "excludeFiles": "{crm/node_modules/**,crm/.local/**,crm/.env*,crm/**/*.test.mjs}", "installCommand": "npm install && npm --prefix crm install", "maxDuration": 60}},
   "rewrites": [{"source": "/(.*)", "destination": "/api/index"}]
 }
