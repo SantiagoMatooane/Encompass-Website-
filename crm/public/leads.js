@@ -1,3 +1,4 @@
+/opt/homebrew/Library/Homebrew/cmd/shellenv.sh: line 18: /bin/ps: Operation not permitted
 import {api,storageKey} from './session.js';
 const $ = s => document.querySelector(s);
 const paths={dashboard:'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',clients:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M16 3a4 4 0 0 1 0 8 M22 21v-2a4 4 0 0 0-3-3.87 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0',leads:'M9 3h6 M9 3v4h6V3 M9 5H5v16h14V5h-4 M8 12h8 M8 16h5',marketing:'M3 10v4h4l10 5V5L7 10H3 M7 14l2 7h3 M21 9v6',spark:'M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z',moon:'M20.7 13A9 9 0 0 1 11 3.3 9 9 0 1 0 20.7 13',sun:'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8 M12 2v2 M12 20v2 M2 12h2 M20 12h2 M5 5l1.5 1.5 M17.5 17.5L19 19 M5 19l1.5-1.5 M17.5 6.5L19 5',search:'M21 21l-5-5 M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',refresh:'M20 7a9 9 0 1 0 1 9 M20 3v5h-5',shield:'M12 3l8 3v6c0 5-8 9-8 9s-8-4-8-9V6z M8 12l3 3 5-6',note:'M14 3H5v18h14V8z M14 3v5h5 M8 12h8 M8 16h5',email:'M3 5h18v14H3z M3 5l9 7 9-7',call:'M5 3h4l2 5-3 2a14 14 0 0 0 6 6l2-3 5 2v4c-8 5-23-10-16-16z',close:'M6 6l12 12 M6 18L18 6',plus:'M12 5v14 M5 12h14'};
@@ -26,7 +27,7 @@ function render(){
  $('#empty').hidden=shown.length>0;
  if(!shown.length){const title=loading?'Loading your leads…':error?'Connection needs attention':query?'No matching leads on this page':demo?'All sample leads added':'A fresh start for your pipeline.';
  const message=loading?'Connecting to your European database.':error?error:query?'Try another name, company or email.':demo?'Return to live leads or reload the sample preview.':'Your saved leads will appear here. Open the ICP agent to define who you want to reach.';
- $('#empty').innerHTML=`<span class="empty-icon">${icon(error?'refresh':'leads')}</span><h3>${title}</h3><p>${esc(message)}</p>${!loading&&!query?error?'<button id="retry">Try again</button>':demo?'':'<a href="/crm/">Open ICP agent ↗</a>':''}`;
+ $('#empty').innerHTML=`<span class="empty-icon">${icon(error?'refresh':'leads')}</span><h3>${title}</h3><p>${esc(message)}</p>${!loading&&!query?error?'<button id="retry">Try again</button>':demo?'':'<a href="/crm/index.html">Open ICP agent ↗</a>':''}`;
  $('#retry')?.addEventListener('click',load);
  }
  $('#page-info').textContent=loading?'Fetching leads':error?'Database unavailable':query?`${shown.length} matches on this page`:rows.length?`${offset+1}–${offset+rows.length} ${demo?'sample leads':'leads'}`:'No leads yet';

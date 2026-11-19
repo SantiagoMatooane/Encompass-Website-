@@ -1,3 +1,4 @@
+/opt/homebrew/Library/Homebrew/cmd/shellenv.sh: line 18: /bin/ps: Operation not permitted
 # Initially restricted to trusted administrators. Do not expose these through
 # a public web server without authentication and workspace membership checks.
 query ListLeads($workspaceId: UUID!, $limit: Int = 50, $offset: Int = 0)
@@ -7,7 +8,7 @@ query ListLeads($workspaceId: UUID!, $limit: Int = 50, $offset: Int = 0)
     id name email phone position status
     company { id name industry country normalizedDomain }
     buyingSignalScore buyingSignalReason buyingSignalSourceUrl
-    buyingSignalObservedAt buyingSignalVerified
+    buyingSignalObservedAt buyingSignalVerified createdAt
   }
 }
 

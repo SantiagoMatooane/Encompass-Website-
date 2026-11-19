@@ -1,3 +1,4 @@
+/opt/homebrew/Library/Homebrew/cmd/shellenv.sh: line 18: /bin/ps: Operation not permitted
 import http from 'node:http';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -103,6 +104,10 @@ export async function handler(req,res){
   }
   if(!['GET','HEAD'].includes(req.method))return json(res,405,{error:'Unsupported method.'});
   const isCRM=route==='/crm'||route.startsWith('/crm/');
+  if(route==='/crm'||route==='/crm/'){
+    res.writeHead(302,{'Location':'/crm/dashboard.html','Cache-Control':'no-store'});
+    return res.end();
+  }
   const base=isCRM?path.join(root,'public'):path.resolve(root,'../website');
   let name=isCRM?route.slice(4):route;
   if(preview&&name==='/auth-firebase.js'&&!isCRM)name='/preview-auth.js';
