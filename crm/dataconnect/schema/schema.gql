@@ -1,0 +1,64 @@
+# Initial CRM model. No client access is granted by defining these tables.
+# Membership authorization must be implemented before enabling client operations.
+enum RelationshipStatus { LEAD CLIENT ARCHIVED }
+enum ImportStatus { PENDING ACCEPTED EXISTING_MATCH REJECTED }
+
+type Workspace @table {
+  name: String!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type WorkspaceMember @table(key: ["workspace", "authUid"]) {
+  workspace: Workspace!
+  authUid: String!
+  role: String!
+}
+
+type Company @table {
+  workspace: Workspace!
+  name: String!
+  normalizedDomain: String
+  industry: String
+  country: String
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+# Leads and clients are views of the same contact record. Promotion changes
+# status, retaining the ID and all linked evidence and future activities.
+type Contact @table {
+  workspace: Workspace!
+  company: Company!
+  name: String!
+  email: String
+  normalizedEmail: String
+  phone: String
+  position: String
+  status: RelationshipStatus! @default(value: LEAD)
+  apolloId: String
+  buyingSignalScore: Int
+  buyingSignalReason: String
+  buyingSignalSourceUrl: String
+  buyingSignalObservedAt: Timestamp
+  buyingSignalVerified: Boolean! @default(value: false)
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+  lastContactedAt: Timestamp
+  clientSince: Timestamp
+}
+
+# Incoming provider snapshots remain separate until duplicate checks and review.
+# No operation below overwrites contacts with imported provider values.
+type ImportRecord @table {
+  workspace: Workspace!
+  provider: String!
+  providerRecordId: String!
+  name: String
+  companyName: String
+  normalizedDomain: String
+  email: String
+  normalizedEmail: String
+  phone: String
+  status: ImportStatus! @default(value: PENDING)
+  matchedContact: Contact
+  retrievedAt: Timestamp! @default(expr: "request.time")
+}
