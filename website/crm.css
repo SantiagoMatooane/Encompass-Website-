@@ -1,0 +1,17 @@
+/* Scoped conceptual artwork; shared card sizing and motion remain in style.css. */
+.product-crm{background:radial-gradient(ellipse at 65% 20%,#334b60,#101b25 62%,#080d13)}
+.product-crm .crm-concept{position:absolute;inset:38px -5% auto;width:110%;pointer-events:none;filter:drop-shadow(0 16px 12px #0008)}
+.product-crm .crm-concept svg{display:block;width:100%;height:auto}
+.product-crm .crm-concept-label{position:absolute;top:63px;left:27px;z-index:2;font-size:9px;color:#cad9e6;border:1px solid #a4b7c744;border-radius:20px;padding:5px 9px;background:#0d1725c9}
+.product-crm .product-cta{color:#c3d5e3}
+#crm-dialog{width:min(720px,calc(100% - 32px));max-height:90svh;overflow-y:auto;padding:44px 38px 32px}
+#crm-dialog #crm-close{position:absolute;right:16px;top:10px;min-width:44px;min-height:44px;font-size:28px;color:#e4edf4}
+#crm-dialog h2{font-size:clamp(38px,5vw,56px);line-height:1.08;margin:20px 0}
+#crm-dialog h3{font:500 22px/1.3 Barlow,sans-serif;margin:0 0 14px;color:#e1eaf1}
+#crm-dialog section{padding:22px;border:1px solid #7692a644;border-radius:10px;background:#90acc30b;margin-top:24px}
+#crm-dialog ul{margin:0;padding-left:19px;color:#c4cfd8;font-size:13px;line-height:1.8}
+#crm-dialog li+li{margin-top:8px}
+#crm-dialog .crm-tagline{color:#e0eaf2;font-size:16px}
+#crm-dialog .crm-planned-note{font-size:12px;color:#aebfcd;margin-bottom:0}
+#crm-dialog :focus-visible,.product-crm:focus-visible{outline:3px solid #b8d2e7;outline-offset:4px}
+@media(max-width:640px){.product-crm .crm-concept{inset:0 -10% auto;width:120%;opacity:.3}.product-crm .crm-concept-label{top:23px;left:85px;right:auto;font-size:8px;padding:3px 6px}.product-crm .crm-concept-label [data-crm="status"],.product-crm .crm-concept-label [aria-hidden]{display:none}.product-crm .crm-concept svg text{opacity:0}#crm-dialog{padding:48px 22px 24px;max-height:94svh}#crm-dialog section{padding:18px}#crm-dialog h2{font-size:38px}}
