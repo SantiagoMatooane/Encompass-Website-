@@ -1,0 +1,55 @@
+body {
+  --bg:#f4f7f9; --paper:#fff; --nav:#f9fbfc; --ink:#172630;
+  --muted:#536775; --line:#ccd7df; --blue:#305b75; --wash:#e3edf3;
+  --action:#28485d; --action-text:#fff;
+}
+body.dark {
+  --bg:#080b0e; --paper:#10171d; --nav:#0b0e11; --ink:#f2f4f5;
+  --muted:#a0afba; --line:#34414c; --blue:#bfd8e8; --wash:#1a2a36;
+  --action:#e7eff4; --action-text:#111b23;
+}
+body,.agent select {color-scheme:inherit}
+body.agent {background:var(--bg);color:var(--ink)}
+.agent .sidebar {background:var(--nav);border-color:var(--line)}
+body .primary {background:var(--action);color:var(--action-text)}
+body .primary:hover {background:var(--action);filter:brightness(.94)}
+.agent .panel,.agent .metric,.agent dialog,.agent .client-card {background:var(--paper);border-color:var(--line);color:var(--ink)}
+.agent .secondary,.agent input,.agent textarea,.agent select,.choices summary {
+  background:var(--bg);color:var(--ink);border:1px solid var(--line)
+}
+.agent label,.agent .breadcrumb b,.agent .avatar {color:var(--ink)}
+.agent .note,.agent .tag,.agent .assistant-icon,.agent .square-icon,.agent .avatar,
+.agent nav button.active,.agent .criterion,.agent #message:not(:empty) {color:var(--blue);background:var(--wash);border-color:var(--line)}
+.agent nav button:hover {background:var(--wash)}
+.agent :is(.eyebrow,.text-button,.connection,.required,.check-list span,.return-link,.discovery a) {color:var(--blue)}
+.agent :is(.caption,.lead,.hint,.breadcrumb,.mode,.workspace-label,.workspace-name small,.nav-label,.sidebar-bottom p,.kicker,.right-panel p,.check-list,.version,.empty,.metric small,.metric p,.muted,.list,.status-row span:last-child,.evidence-item span,.criterion small,h1 em,nav button,nav button>span,footer) {color:var(--muted)}
+.agent :is(header,footer,.empty,.form-bottom,.status-row,.version,.evidence-item) {border-color:var(--line)}
+.agent .rule {background:var(--line)}
+.agent .warning {background:var(--wash);color:var(--ink)}
+.agent:not(.dark) .brand svg {filter:invert(1)}
+.return-link {display:block;padding:12px;border:1px solid var(--line);border-radius:4px;margin-bottom:22px;font-size:11px}
+.agent .metrics {grid-template-columns:repeat(2,minmax(0,1fr))}
+.agent dialog {width:min(440px,90vw);padding:28px;border:1px solid var(--line);border-radius:5px}
+.agent dialog p {line-height:1.7;color:var(--muted)}
+.agent dialog::backdrop {background:#071018aa}
+.choices summary {border-radius:3px;padding:12px;cursor:pointer;min-height:44px}
+.field>span {font-size:11px}
+.choice-list {max-height:210px;overflow:auto;padding:7px;border:1px solid var(--line)}
+.choice-list label {display:flex;gap:10px;align-items:center;padding:7px;cursor:pointer}
+.choice-list input {width:16px;min-height:16px;height:16px;margin:0}
+#titles {min-height:132px}
+#theme {
+  display:inline-grid;place-items:center;flex:0 0 34px;width:34px;height:34px;
+  margin:0;padding:0;border:0;border-radius:5px;background:transparent;color:var(--muted);cursor:pointer;
+}
+#theme:hover,#theme:focus-visible {background:var(--wash);color:var(--ink)}
+#theme::before {content:"";width:18px;height:18px;background:currentColor;
+  mask:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linejoin='round'%3E%3Cpath d='M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z'/%3E%3C/svg%3E");
+}
+.dark #theme::before {
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5'/%3E%3C/svg%3E");
+}
+.agent .header-actions .avatar {
+  display:inline-grid;place-items:center;flex-shrink:0;padding:0;line-height:1;text-decoration:none;
+}
+tr[data-lead] {cursor:pointer}
