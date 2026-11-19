@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "encompass-crm-4239d-service"
+location: "europe-west1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "encompass-crm-4239d-database"
+      cloudSql:
+        instanceId: "encompass-crm-4239d-instance"
+        schemaValidation: "COMPATIBLE"
+connectorDirs: ["./crm"]
