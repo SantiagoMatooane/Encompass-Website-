@@ -1,0 +1,47 @@
+# Initially restricted to trusted administrators. Do not expose these through
+# a public web server without authentication and workspace membership checks.
+query ListLeads($workspaceId: UUID!, $limit: Int = 50, $offset: Int = 0)
+  @auth(level: NO_ACCESS) {
+  contacts(where: {workspaceId: {eq: $workspaceId}, status: {eq: LEAD}},
+    orderBy: {createdAt: DESC}, limit: $limit, offset: $offset) {
+    id name email phone position status
+    company { id name industry country normalizedDomain }
+    buyingSignalScore buyingSignalReason buyingSignalSourceUrl
+    buyingSignalObservedAt buyingSignalVerified
+  }
+}
+
+query ListClients($workspaceId: UUID!, $limit: Int = 50, $offset: Int = 0)
+  @auth(level: NO_ACCESS) {
+  contacts(where: {workspaceId: {eq: $workspaceId}, status: {eq: CLIENT}},
+    orderBy: {clientSince: DESC}, limit: $limit, offset: $offset) {
+    id name email phone position company { id name industry country normalizedDomain } clientSince createdAt lastContactedAt
+  }
+}
+
+mutation PromoteLeadToClient($workspaceId: UUID!, $contactId: UUID!)
+  @auth(level: NO_ACCESS) {
+  contact_updateMany(
+    where: {id: {eq: $contactId}, workspaceId: {eq: $workspaceId}, status: {eq: LEAD}},
+    data: {status: CLIENT, clientSince_expr: "request.time", updatedAt_expr: "request.time"}
+  )
+}
+
+query FindCompany($workspaceId: UUID!, $name: String!) @auth(level: NO_ACCESS) {
+  companies(where: {workspaceId: {eq: $workspaceId}, name: {eq: $name}}, limit: 1) { id }
+}
+mutation CreateClient($workspaceId: UUID!, $companyId: UUID!, $name: String!, $email: String, $phone: String, $position: String) @auth(level: NO_ACCESS) {
+  contact_insert(data: {workspaceId: $workspaceId, companyId: $companyId, name: $name, email: $email, normalizedEmail: $email, phone: $phone, position: $position, status: CLIENT, clientSince_expr: "request.time"})
+}
+mutation CreateClientAndCompany($workspaceId: UUID!, $companyId: UUID!, $company: String!, $name: String!, $email: String, $phone: String, $position: String) @auth(level: NO_ACCESS) @transaction {
+  company_insert(data: {id: $companyId, workspaceId: $workspaceId, name: $company})
+  contact_insert(data: {workspaceId: $workspaceId, companyId: $companyId, name: $name, email: $email, normalizedEmail: $email, phone: $phone, position: $position, status: CLIENT, clientSince_expr: "request.time"})
+}
+
+# Minimal context for ICP analysis: excludes personal contact details.
+query ICPClientContext($workspaceId: UUID!, $limit: Int = 101) @auth(level: NO_ACCESS) {
+  contacts(where: {workspaceId: {eq: $workspaceId}, status: {eq: CLIENT}},
+    orderBy: {id: ASC}, limit: $limit) {
+    company { id name industry country }
+  }
+}
